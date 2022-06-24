@@ -14,7 +14,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        return view('Category.index', [
+            'categories' => Category::all()
+        ]);
     }
 
     /**
@@ -24,7 +26,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('category.create');
     }
 
     /**
@@ -35,7 +37,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category= new Product();
+        $category->name=$request->get('name');
+        $category->description=$request->get('description');
+        $category->priority=$request->get('priority');
+        $category->save();
+        return redirect('/categories');
     }
 
     /**
@@ -46,7 +53,10 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        $category=Category::findOrFail($category->id);;
+        return view('category.show',[
+            'category'=>$category
+        ]);
     }
 
     /**
@@ -57,7 +67,9 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('category.edit',[
+            'category'=>$category
+        ]);
     }
 
     /**
@@ -69,7 +81,12 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $category->name=$request->get('name');
+        $category->description=$request->get('description');
+        $category->priority=$request->get('priority');
+        $category->save();
+
+        return redirect('/categories');
     }
 
     /**
@@ -80,6 +97,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return redirect('/categories');
     }
 }

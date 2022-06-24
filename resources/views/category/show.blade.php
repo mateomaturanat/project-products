@@ -1,12 +1,12 @@
 @extends('layout.base')
 
-@section('title', 'Show | ' . $product->name  )
+@section('title', 'Show | ' . $category->name  )
 
 @section('content')
     <article class="container">
         <section class="row">
             <div class="col-12">
-                <h1 class="text-center alert alert-success">{{ $product->name }}</h1>
+                <h1 class="text-center alert alert-success">{{ $category->name }}</h1>
             </div>
         </section>
         <section class="row my-4">
@@ -16,16 +16,13 @@
 
                         <div class="col-8">
                             <div class="card-body">
-                                <h5 class="card-title">{{ $product->name }}</h5>
-                                <img class="card-img-top" src="{{$product->url_image}}" alt="Card image cap">
+                                <h5 class="card-title">{{ $category->name }}</h5>
                                 <ul>
-                                   <li><p class="card-text"><u>Categoria</u>:{{$category->name}}</p></li>
-                                    <li><p class="card-text"><u>Description:</u> {{$product->description}}</p></li>
-                                    <li><p class="card-text"><u>Priority: </u>{{$product->priority}}</p></li>
-                                    <li><p class="card-text"><u>Value:</u> ${{number_format($product->value),4,".",","}}</p></li>
+                                   <li><p class="card-text"><u>Description</u>:{{$category->description}}</p></li>
+                                    <li><p class="card-text"><u>Priority: </u>{{$category->priority}}</p></li>
                                 </ul>
                                     @can('delete-post')
-                                <form action="/products/{{$product->slug}}" method="POST">
+                                <form action="/categories/{{$category->slug}}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <input
@@ -37,7 +34,7 @@
                                 </form>
                                 @endcan
                                 @can('delete-post')
-                                    <td><a href="/products/{{$product->slug}}/edit" class="btn btn-success">Edit</a></td>
+                                    <td><a href="/categories/{{$category->slug}}/edit" class="btn btn-success">Edit</a></td>
                                 @endcan
 
 

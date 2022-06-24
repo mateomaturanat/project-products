@@ -1,6 +1,6 @@
 @extends('layout.base')
 
-@section('title', 'Create new product')
+@section('title', 'Edit product')
 
 @section('content')
     <article class="container">
@@ -10,8 +10,9 @@
     </article>
     <article class="container">
         <section>
-            <form action="/products" class="row" method="POST">
+            <form action="/products/{{$product->slug}}" class="row" method="POST">
                 @csrf
+                @method('PUT')
                 <div class="mb-3 col-6">
                     <label for="name" class="form-label">Name</label>
                     <input type="text" class="form-control" id="name" name="name" value="{{old('name',$product->name)}}">

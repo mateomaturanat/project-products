@@ -21,7 +21,10 @@ Route::resource(
     '/products',
     \App\Http\Controllers\ProductController::class
 )->middleware('auth');
-
+Route::resource(
+    '/categories',
+    \App\Http\Controllers\CategoryController::class
+)->middleware('admin');
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

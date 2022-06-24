@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\productDeleteReport;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str as Str;
 
 class ProductController extends Controller
@@ -77,7 +80,6 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $product=Product::findOrFail($product->id);
         return view('product.edit',[
             'product'=>$product,
             'category'=>Category::all()
@@ -93,7 +95,14 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $product->name=$request->get('name');
+        $product->description=$request->get('description');
+        $product->priority=$request->get('priority');
+        $product->category_id=$request->get('category_id');
+        $product->url_image=$request->get('url_image');
+        $product->value=$request->get('value');
+        $product->save();
+        return redirect('/products');
     }
 
     /**
@@ -104,8 +113,11 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        $product->delete();
+        $e_mail=auth()->user()->email;
 
+        $product->delete();
+        Mail::to($e_mail)
+            ->send(new productDeleteReport( $product));
         return redirect('/products');
     }
 }

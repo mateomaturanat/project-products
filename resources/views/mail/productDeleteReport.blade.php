@@ -19,30 +19,10 @@
                                 <h5 class="card-title">{{ $product->name }}</h5>
                                 <img class="card-img-top" src="{{$product->url_image}}" alt="Card image cap">
                                 <ul>
-                                   <li><p class="card-text"><u>Categoria</u>:{{$category->name}}</p></li>
                                     <li><p class="card-text"><u>Description:</u> {{$product->description}}</p></li>
                                     <li><p class="card-text"><u>Priority: </u>{{$product->priority}}</p></li>
                                     <li><p class="card-text"><u>Value:</u> ${{number_format($product->value),4,".",","}}</p></li>
                                 </ul>
-                                    @can('delete-post')
-                                <form action="/products/{{$product->slug}}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input
-                                        type="submit"
-                                        value="Delete"
-                                        class="btn btn-danger"
-                                        onclick="return confirm('Are you sure ?')"
-                                    >
-                                </form>
-                                @endcan
-                                @can('delete-post')
-                                    <td><a href="/products/{{$product->slug}}/edit" class="btn btn-success">Edit</a></td>
-                                @endcan
-
-
-
-
                             </div>
                         </div>
                     </div>
